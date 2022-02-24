@@ -1,0 +1,230 @@
+{% extends 'DimosoApp/base.html' %}
+{% load static %}
+{% load hitcount_tags %}
+
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %}Seasrch page {% endblock %}</title>
+	 <style type="text/css">
+    *{
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+
+    } 
+#name{
+    width: 100%;
+}
+    body{
+        overflow-x: hidden;
+    }
+    a{
+        text-decoration: none;
+    }
+    #testimonials{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+    }
+.testimonials{
+    letter-spacing: 1px;
+    margin: 30px 20px;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;align-items: center;
+}
+.testimonials-heading h1{
+    font-size: 2.2rem;
+    font-weight: 500;
+    background-color: #202020;
+    color: white;
+    padding: 10px 20px;
+}
+.testimonials-heading span{
+    font-size: 1.3rem;
+    color: #252525;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+.testimonials-box-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+
+}
+.testimonials-box{
+    width: 500px;
+    box-shadow: 2px 2px 30px rgba(0,0,0,0.1);
+    background-color:white;
+    padding: 20px;
+    margin: 15px;
+    cursor: pointer;
+}
+.profile-img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+}
+.profile-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.profile{
+    display: flex;
+    align-items: center;
+}
+.name-user{
+    display: flex;
+    flex-direction: column;
+}
+.name-user strong{
+    color: black;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+}
+.name-user span{
+    color: black;
+    font-size: 0.8rem;
+}
+.reviews{
+    color: red;
+}
+.box-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.client-comment p{
+    font-size: 0.9rem;
+    color: black;
+    font-weight: bold;
+}
+
+.testimonial-box:hover{
+    transform: translateY(-10px);
+    transition: all ease 0.3s;
+}
+
+
+    </style>
+
+</head>
+<body>
+
+
+<div class="container">
+	<center>
+	<h1 style="color: green;">Looking For Your Searches</h1>
+
+	{% if query %}
+
+	<h3 style="color: red;font-weight: bold;">{% with results.count as total_results %}
+	found {{total_results}} results
+	{% endwith %}
+</h3>
+
+
+
+{% for file in results %}
+
+
+    <div class="testimonials-box">
+
+
+        <div class="box-top">
+
+            <div class="profile">
+
+  <div class="name-user">
+    <strong style="font-size: 30px;">File Name: {{file.name}}</strong>
+    <span style="font-size: 17px;">File Owner: {{file.owner}}</span>
+      
+  </div>             
+            </div>
+
+            <div class="reviews">
+
+                
+
+                    {% if file.cover %} 
+               
+  <div class="" style="margin-top: 1cm;">
+      <img src="{{file.cover.url}}" style="width: 150px;height: 150px;"> 
+  </div> 
+  {% else %}
+  
+  <div class="">
+      <img src="{% static 'DimosoApp/assets/img/pdf/pdf1.png' %}" style="width: 150px;height: 150px;"> 
+  </div> 
+  {% endif %}
+  
+
+                
+
+            </div>
+
+
+        </div>
+    <!--comments---->
+    <div class="client-comment">
+
+        <p>
+        	{% if file.pdf %}
+            
+             <a href="{{file.pdf.url}}" class="btn btn-primary btn-md my-0 p" type="submit" style="margin-right: 1cm;">View Pdf</a> 
+               {% else %}
+                 
+<button class="btn btn-black btn-md my-0 p" style="padding: 2px;"> <span style="color: red;font-weight: bold;font-size: 20px;margin-right: 1cm;">No View </span>  </button>
+                  {% endif %}
+   
+{% if file.pdf %}
+          <a href="{{file.pdf.url}}" download class="btn btn-danger btn-md my-0 p" type="submit">Download Pdf</a> 
+             {% else %}
+
+             <button class="btn btn-black btn-md my-0 p" style="padding: 2px;"> <span style="color: green;font-weight: bold;font-size: 20px;margin-right: 0cm;">No Download </span>  </button>
+                
+                  {% endif %}  
+        </p>
+        
+    </div>    
+
+
+    </div>
+
+
+
+
+{% empty %}
+<h1>There is no Notes</h1>
+
+{% endfor %}
+
+{% else %}
+<h3>Error in your query</h3>
+	{% endif %}
+
+	
+</center>
+
+
+<a href="{% url 'AploadView' %}"class="btn btn-primary btn-md my-0 p" type="submit" style="margin-bottom: : 3cm;margin-bottom: 1cm;display: flex;font-weight: bold;font-size: 20px;width: 3cm;">  Go Back </a>	
+</div>
+
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,287 @@
+{% extends 'DimosoApp/base.html' %}
+{% load static %}
+{% load hitcount_tags %}
+
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %} Post Detail {% endblock %}</title>
+
+<style type="text/css">
+    #content{
+        height: 3cm;
+        border-radius: 10px;
+        border: 3px solid blue;
+        font-size: 20px;
+    }
+    body{
+        overflow-x: hidden;
+        width: 100%;
+    }
+
+</style>
+
+</head>
+
+<body>
+
+
+ 
+ <div class="container" style="margin-top: 0cm;">
+
+
+        <!-- ---------------------- Site Content -------------------------->
+
+        <section class="container" style="">
+            
+            <div class="site-content" style="">
+                <div class="posts">
+                    <center>
+                        <h1 style="font-size: 40px;font-weight: bold;color: blue;">{{object.category.name}}</h1>
+                    </center>
+
+
+                    
+                    <div class="post-content" data-aos="zoom-in" data-aos-delay="200" style="">
+                       
+
+  <div class="post-image" style="margin-bottom: 2px;">
+    {% if object.image %} 
+                            <div style="width: 100%">
+                                <img src="{{object.image.url}}" class="img" alt="blog1">
+                            </div>
+                            {% else %}
+                            <div style="width: 100%">
+
+                            <img src="{% static 'DimosoApp/assets/img/gallery/basic.jpeg' %}"> 
+                        </div>
+                            {% endif %}
+                            <div class="post-info flex-row" style="background-color: green;color: white; font-weight: bold;text-align: center;margin-top: : 1cm;">
+                                <span><i class="fas fa-user text-red"></i>&nbsp;&nbsp;Posted:</span>
+                                <span><i class="fas fa-calendar-alt text-red"></i>&nbsp;&nbsp;{{object.post_date}}</span>
+                                <span style="color: white;font-weight: bold;font-size: 20px;">Views <i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for object %}</span>
+                            </div>
+                        </div>
+
+                        <h4 style="margin-left: 1cm;">{{object.title|safe}}</h4>
+                        <p style="margin-left: 1cm;">
+                           {{object.title_description|safe}} 
+
+                        </p>
+
+        
+
+            <p style="width: 90%;">
+            
+
+            {{object.body|safe}}
+
+            </p>
+            
+
+
+     
+
+                       
+
+
+                    </div>
+                   
+                    <hr>
+
+
+
+
+                
+                </div>
+                <aside class="sidebar">
+                    <div class="category">
+                    
+
+
+                    </div>
+
+                    
+
+
+
+
+
+
+
+
+                    <div class="popular-post">
+
+
+                        <h2 style="color: blue;font-weight: bold;font-size: 40px;">New Posts</h2>
+
+                         {% for object in new_posts %}
+                        <div class="post-content" data-aos="flip-up" data-aos-delay="200">
+                            <div class="post-image">
+                                <div>
+                                    
+                                    <img src="{{object.image.url}}" class="img" alt="blog1">
+                                </div>
+                                <div class="post-info flex-row">
+                                    <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;{{object.post_date}}</span>
+                                    <span>2 Commets</span>
+                                </div>
+                            </div>
+                            <div class="post-title">
+                               
+                                 <a href="#" style="color: black;font-weight: bold;font-size: 20px;">{{object.name}}</a>
+                            </div>
+                        </div>
+
+
+{% endfor %}
+
+
+                    </div>
+
+
+
+
+
+                    <div class="newsletter" data-aos="fade-up" data-aos-delay="300">
+                        <h2 style="color: red; font-weight: bold;"> Comments: {{post_comments_count}}</h2>
+                        <h2 style="color: red; font-weight: bold;"> Views: <i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for object %}</h2>
+
+
+                            {% if messages %}
+      {% for message in messages %}
+      
+
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong style="">{{message}}</strong>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style=""></button>
+</div>
+      {% endfor %}
+    {% endif %}
+
+
+
+
+                        <h2 style="color: black;font-weight: bold;font-family: serif;">Write a Comment</h2>
+
+                        <div class="form-element">
+
+
+                            <!---display content-------
+                            {% for comment in post_comments %}
+                            {{comment.date}}
+                            {{comment.content}}
+
+                            {% endfor %}
+                            ------>
+
+
+                            <!---mwisho wa kudisplay content------->
+
+                            <!---display form------->
+                            <form method="POST" action="{% url 'PostDetail' object.pk %}">
+                                {% csrf_token %}
+                                {{form}}
+
+                                <button type="Submit" style="background-color: blue;color: white;font-weight: bold;margin-top: 1cm;width: 6cm;padding: 10px;border-radius: 8px;font-size: 20px;">Submit</button>
+                                
+                            </form>
+
+
+
+                            <!---mwisho wa kudisplay content------->
+                                
+                           
+
+
+
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="popular-tags">
+                        <h2>Popular Tags</h2>
+                        <div class="tags flex-row">
+                            <span class="tag" data-aos="flip-up" data-aos-delay="100">Software</span>
+                            <span class="tag" data-aos="flip-up" data-aos-delay="200">technology</span>
+                            <span class="tag" data-aos="flip-up" data-aos-delay="300">travel</span>
+                            <span class="tag" data-aos="flip-up" data-aos-delay="400">illustration</span>
+                            <span class="tag" data-aos="flip-up" data-aos-delay="500">design</span>
+                            <span class="tag" data-aos="flip-up" data-aos-delay="600">lifestyle</span>
+                            <span class="tag" data-aos="flip-up" data-aos-delay="700">love</span>
+                            <span class="tag" data-aos="flip-up" data-aos-delay="800">project</span>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <!-- -----------x---------- Site Content -------------x------------>
+
+    </main>
+
+    <!---------------x------------- Main Site Section ---------------x-------------->
+
+</div>
+
+<!--jquery code for autocomplete javascriptcode---->
+<script src="{% static 'DimosoApp/assets/jqueryui/external/jquery/jquery.js' %}" type="text/javascript"></script>
+<script src="{% static 'DimosoApp/assets/jqueryui/jquery-ui.js' %}" type="text/javascript"></script>
+
+
+
+<script >
+  $( function() {
+    var availableTags = [
+      "ActionScript",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskel",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"
+      
+
+    ];
+
+   $( "#name" ). autocomplete({
+    source: "{% url 'search_post' %}",
+  });
+
+
+  } );
+  
+  
+
+</script>
+
+
+</body>
+
+</html>
+{% endblock %}

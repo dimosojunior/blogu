@@ -1,0 +1,106 @@
+{% extends 'DimosoApp/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}Register {% endblock %}
+
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+      .conta{
+  background: linear-gradient(90deg, #ff00bf9b 0%, #c6ff6932 43%, #0099ff9d 100%);
+}
+    </style>
+</head>
+<body>
+   
+
+   
+
+ <div class="container-fluid" style="margin-top: 1cm;">
+
+  <center><h1 style="font-family: bold;">USER REGISTRATION FORM</h1></center>
+
+<div style="color: black;font-weight: bold;" class="conta">
+
+  
+      
+    <form action="" method="post">
+      {% csrf_token %}
+     
+      
+    <div class="row">
+
+      <div class="col-md-12">
+
+        <div class="row">
+
+         
+
+          <div class="col-md-3">
+            {{form.email|as_crispy_field}}
+
+          </div>
+
+           <div class="col-md-3">
+            {{form.username|as_crispy_field}}
+
+          </div>
+
+           <div class="col-md-3">
+            {{form.password1|as_crispy_field}}
+
+          </div>
+
+           <div class="col-md-3">
+            {{form.password2|as_crispy_field}}
+
+          </div>
+
+          
+         
+
+        </div><!---mwisho wa inner row-->
+
+      </div>
+
+
+      <div style="text-align: center;">
+      
+  <button type="submit" class="btn btn-primary btn-md my-0 p">
+   
+Submit
+
+  </button>
+
+</div>
+
+  </form>
+
+    </div>
+    </div>
+     
+
+    
+
+
+
+
+ </div>
+
+
+
+
+</div>
+
+
+</body>
+</html>
+{% endblock %}

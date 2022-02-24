@@ -1,0 +1,94 @@
+
+{% extends 'DimosoApp/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}login {% endblock %}
+
+
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+   <style type="text/css">
+    body{
+      overflow-x: hidden;
+    }
+
+      .input{
+    width: 13cm;
+     margin-bottom: 2px;
+    padding: 20px;
+    border-radius: 15px;
+   
+  }
+.conta{
+  background: linear-gradient(90deg, #ff00bf9b 0%, #c6ff6932 43%, #0099ff9d 100%);
+}
+   </style></head>
+<body>
+    <center>
+<div style="margin-top: 0px;">
+
+
+     {% if messages %}
+    {% for message in messages %}
+     
+
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>{{message}}</strong>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+    {% endfor %}
+  {% endif %}
+
+    <div style="margin-top: 0px;"class="conta" >
+        <h1 style="font-family: bold;margin-left: 1cm;font-family: bold;margin-bottom: 1cm;">Login Here</h1>
+        <div style="margin-left: 1cm;" >
+   <form action="" method="POST">
+       {% csrf_token %}
+
+
+   <div class="row">
+            {{login_form.email|as_crispy_field}}
+
+          
+            {{login_form.password|as_crispy_field}}
+
+          </div>
+
+
+
+
+
+
+
+
+       
+
+       {% if login_form.non_field_errors %}
+       {% for err in login_form.non_field_errors %}
+
+       <p style="color: red; font-size: 20px;">{{err}}</p>
+      {% endfor %}
+
+       {% endif %}
+   
+   
+   
+   <button type="submit"class="btn btn-primary btn-md my-0 p" style="margin-top: 1cm;width: 5cm;">Login</button>
+   
+   </form>
+   </div>
+   </div>
+</div>
+</center>
+</body>
+</html>
+{% endblock %}

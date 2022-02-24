@@ -1,0 +1,412 @@
+{% extends 'DimosoApp/base.html' %}
+{% load static %}
+{% load hitcount_tags %}
+
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %}Notes {% endblock %}</title>
+
+	  <style type="text/css">
+    *{
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+
+    } 
+#searchi{
+    width: 100%;
+    padding: 15px;
+    border: 3px solid blue;
+    border-radius: 20px;
+}
+    body{
+        overflow-x: hidden;
+    }
+    a{
+        text-decoration: none;
+    }
+    #testimonials{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+    }
+.testimonials{
+    letter-spacing: 1px;
+    margin: 30px 20px;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;align-items: center;
+}
+.testimonials-heading h1{
+    font-size: 2.2rem;
+    font-weight: 500;
+    background-color: #202020;
+    color: white;
+    padding: 10px 20px;
+}
+.testimonials-heading span{
+    font-size: 1.3rem;
+    color: #252525;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+.testimonials-box-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+
+}
+.testimonials-box{
+    width: 500px;
+    box-shadow: 2px 2px 30px rgba(0,0,0,0.1);
+    background-color:white;
+    padding: 20px;
+    margin: 15px;
+    cursor: pointer;
+}
+.profile-img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+}
+.profile-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.profile{
+    display: flex;
+    align-items: center;
+}
+.name-user{
+    display: flex;
+    flex-direction: column;
+}
+.name-user strong{
+    color: black;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+}
+.name-user span{
+    color: black;
+    font-size: 0.8rem;
+}
+.reviews{
+    color: red;
+}
+.box-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.client-comment p{
+    font-size: 0.9rem;
+    color: black;
+    font-weight: bold;
+}
+
+.testimonial-box:hover{
+    transform: translateY(-10px);
+    transition: all ease 0.3s;
+}
+
+
+    </style>
+
+</head>
+<body>
+	<div class="container-fluid" style="margin-top: 1cm;">
+
+ {% if messages %}
+    {% for message in messages %}
+     
+
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>{{message}}</strong>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+    {% endfor %}
+  {% endif %}
+
+<center>
+    <div style="background-color: yellow;padding: 15px;">
+<a href="{% url 'upload_documents' %}"class="btn btn-success btn-md my-0 p" type="submit" style="margin-bottom: : 3cm;margin-bottom: 1cm;"> Upload Notes  </a>
+</div>
+</center>
+
+
+<div class="row">
+    <div class="col-md-10">
+     
+
+
+<form action="{% url 'search_pdf' %}" class="form-group" method="get">
+
+  <label style="font-size: 20px;font-weight: bold;color: black;">Search</label><br>
+  <input type="text" name="search" id="searchi" placeholder="Search a notes"><br>
+  <button class="btn btn-primary" style="border-radius: 15px;width: 5cm;margin-top: 1cm;">Search</button>
+  
+</form>
+
+
+
+
+</div>
+</div>
+
+
+
+
+
+<section id="testimonials">
+
+   
+
+<div class="row" style="margin-top: 10px;">
+
+
+  <div class="col-md-12" style="display: inline;">
+      <a href="{% url 'AploadView' %}"class="btn btn-primary btn-md my-0 p" type="submit" style="margin-bottom: : 3cm;margin-bottom: 1cm;display: flex;font-weight: bold;font-size: 20px;"> All Notes</a>
+    
+    </div>
+
+{% for x in categories %}
+    <div class="col-md-12" style="display: inline;">
+      <a href="{{x.get_absolute_url}}"class="btn btn-primary btn-md my-0 p" type="submit" style="margin-bottom: : 3cm;margin-bottom: 1cm;display: flex;font-weight: bold;font-size: 20px;">  {{x.name}} </a>
+    
+    </div>
+    {% endfor %}
+</div>
+
+
+
+
+
+
+
+
+
+
+
+ <div class="testimonials-heading" style="margin-top: 2cm;">
+
+
+
+
+
+        <h1>All Uploaded Notes</h1>
+        
+
+    </div>
+
+
+
+
+<div class="testimonials-box-container">
+{% if files %}
+{% for file in files %}
+
+
+    <div class="testimonials-box">
+
+
+        <div class="box-top">
+
+            <div class="profile">
+
+  <div class="name-user">
+    <strong style="font-size: 30px;">File Name: {{file.name}}</strong>
+    <span style="font-size: 17px;">File Owner: {{file.owner}}</span>
+      <span style="font-size: 17px;">Year: {{file.year}}</span>
+      
+  </div>             
+            </div>
+
+            <div class="reviews">
+
+                
+
+                    {% if file.cover %} 
+               
+  <div class="" style="margin-top: 1cm;">
+      <img src="{{file.cover.url}}" style="width: 150px;height: 150px;"> 
+  </div> 
+  {% else %}
+  
+  <div class="">
+      <img src="{% static 'DimosoApp/assets/img/pdf/pdf1.png' %}" style="width: 150px;height: 150px;"> 
+  </div> 
+  {% endif %}
+  
+
+                
+
+            </div>
+
+
+        </div>
+    <!--comments---->
+    <div class="client-comment">
+
+        <p>
+        	{% if file.pdf %}
+            
+             <a href="{{file.pdf.url}}" class="btn btn-primary btn-md my-0 p" type="submit" style="margin-right: 1cm;">View Pdf</a> 
+               {% else %}
+                 
+<button class="btn btn-black btn-md my-0 p" style="padding: 2px;"> <span style="color: red;font-weight: bold;font-size: 20px;margin-right: 1cm;">No View </span>  </button>
+                  {% endif %}
+   
+{% if file.pdf %}
+          <a href="{{file.pdf.url}}" download class="btn btn-danger btn-md my-0 p" type="submit">Download Pdf</a> 
+             {% else %}
+
+             <button class="btn btn-black btn-md my-0 p" style="padding: 2px;"> <span style="color: green;font-weight: bold;font-size: 20px;margin-right: 0cm;">No Download </span>  </button>
+                
+                  {% endif %}  
+        </p>
+        
+    </div>    
+
+
+    </div>
+
+
+
+
+{% endfor %}
+{% else %}
+<center>
+    <h2>There is no any Notes uploaded</h2>
+</center>
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+    
+</div>
+
+
+
+    
+</section>
+
+
+
+
+<center>
+  
+  <div class="d-flex flex-column m-auto pagination mt-5">
+    <nav aria-label="page navigation">
+      <ul class="pagination pg-grey justify-content-center">
+        {% if files.has_previous %}
+        <li class="page-item" style="margin-right: 15px;">
+         <a href="?page=1"><button class="btn-primary" style="font-size: 22px;border-radius: 10px;font-family: bold;padding-right: 10px;">&laquo First </button></a> 
+        </li>
+
+         <li class="page-item" style="margin-right: 15px;">
+         <a href="?page={{files.previous_page_number }}"><button class="btn-primary" style="font-size: 22px;border-radius: 10px;font-family: bold;padding-right: 10px;">Previous</button></a> 
+        </li>
+        {% endif %}
+      <h1 style="color: red;font-size: 20px;font-weight: bold;margin-top: 10px;margin-right: 15px;"> Page {{files.number}} of {{files.paginator.num_pages }}</h1>
+        {% if files.has_next %}
+         <li class="page-item" style="margin-right: 15px;">
+         <a href="?page={{files.next_page_number }}"><button class="btn-primary" style="font-size: 22px;border-radius: 10px;font-family: bold;padding-right: 10px;">Next </button></a> 
+        </li>
+        <li class="page-item" style="margin-right: 15px;">
+         <a href="?page={{files.paginator.num_pages }}"><button class="btn-primary" style="font-size: 22px;border-radius: 10px;font-family: bold;padding-right: 10px;">Last  &raquo</button></a> 
+        </li>
+        {% endif %}
+
+        
+        
+      </ul>
+      
+    </nav>
+    
+  </div>
+
+</center>
+
+
+
+
+
+
+
+
+</div>
+
+<!--jquery code for autocomplete javascriptcode---->
+<script src="{% static 'DimosoApp/assets/jqueryui/external/jquery/jquery.js' %}" type="text/javascript"></script>
+<script src="{% static 'DimosoApp/assets/jqueryui/jquery-ui.js' %}" type="text/javascript"></script>
+
+
+
+<script >
+  $( function() {
+    var availableTags = [
+      "ActionScript",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskel",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"
+      
+
+    ];
+
+   $( "#searchi" ). autocomplete({
+    source: "{% url 'search_notes' %}",
+  });
+
+
+  } );
+  
+  
+
+</script>
+
+
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+mama
+</body>
+</html>
+
+    <div class="col-md-4 border-right h-100" >
+                    <div class="list-group bg-dark" id='user-list' >
+
+                        
+
+                        {% for u in users %} {% if not u.id == 0 and not u.id == user.id %}
+                        <a class="list-group-item {% if u.id != chat_id %}bg-dark{% else %}bg-primary{% endif %} text-white" href="{% url 'chat-home' %}?u={{u.id}}">
+                            
+
+
+                               <div>
+
+
+                                <p> {{u.username}}</p></div>
+                            
+                        </a>
+                        {% endif %} {% endfor %}
+
+                       
+ 
+
+                    </div>
+
+   
+
+                    
+                </div>

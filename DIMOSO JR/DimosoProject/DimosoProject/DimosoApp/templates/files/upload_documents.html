@@ -1,0 +1,121 @@
+{% extends 'DimosoApp/base.html' %}
+{% load static %}
+{% load hitcount_tags %}
+
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %}Upload Notes {% endblock %}</title>
+  <style type="text/css">
+      body{
+
+  overflow-x: hidden;
+  background-color: wheat;
+}
+
+
+input{
+  width: 10cm;
+  padding: 15px;
+  margin: 5px;
+  border-radius: 10px;
+  border: 2px solid blue;
+}
+label{
+  color: black;
+  font-weight: bold;
+  font-size: 20px;
+}
+input[type=submit]{
+  width: 6cm;
+  padding: 10px;
+  margin-top: : 1cm;
+  border-radius: 10px;
+  
+}
+
+
+    </style>
+
+</head>
+<body>
+
+<div class="container-fluid" style="margin-top: 1cm;">
+   {% if messages %}
+    {% for message in messages %}
+     
+
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>{{message}}</strong>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+    {% endfor %}
+  {% endif %}
+
+
+<a href="{% url 'AploadView' %}"class="btn btn-primary btn-md my-0 p" type="submit" style="margin-top: 1cm;margin-bottom: 1cm;width: 4cm;">  Back 
+
+                        </a>
+
+
+
+
+
+<center>
+
+  
+
+    <form  method="POST" action="" enctype="multipart/form-data" class="form-group">
+      {% csrf_token %}
+      <div class="d-flex flex-column pb-3">
+        
+<img src="">
+
+      </div>
+      <center><h1 style="font-family: bold;color: green;">UPLOADING YOUR PDF FILE</h1></center>
+      <label>File Name</label><br>
+
+      <input type="text" name="name" id="" class="" placeholder="Enter file name" ><br>
+ 
+   <label>File Owner</label><br>    
+<input type="text" name="owner" id="" class="" placeholder=Enter owner of a file><br>
+
+ <label>Select Category</label><br> 
+  <select name="filecourse" style="color: blue;font-weight: bold;font-size: 20px;padding: 15px;width: 10cm;border: 2px solid blue;border-radius: 15px;">
+    <option value="none" style="color: black;font-weight: bold;font-family: bold;">Select category....</option>
+    {% for filecourse in categories %}
+    <option value="{{filecourse.id}}" style="color: black;font-weight: bold;font-family: bold;">{{filecourse.name}}</option>
+
+    {% endfor %}
+  </select><br>
+<!---
+ <label>Create a new category</label><br> 
+ <input type="text" name="filecourse_new" id="" class="" placeholder="create a new category"><br>
+---->
+
+ <label>Choose Cover Image</label><br>
+<input type="file" name="cover" enctype="multipart/form-data" id="" class="" placeholder="Enter file cover" ><br>
+
+   
+
+
+
+ <label>Choose Pdf File</label><br>
+<input type="file" name="pdf" enctype="multipart/form-data" id="" class="" placeholder="Enter pdf file" ><br>
+
+<label>Year Of Study</label><br>    
+<input type="text" name="year" id="" class="" placeholder="Enter year" ><br>
+ <input type="submit" class="btn-primary" value="Submit">
+    </form>
+      
+    
+    
+  </center>
+
+</div>
+</body>
+</html>
+{% endblock %}

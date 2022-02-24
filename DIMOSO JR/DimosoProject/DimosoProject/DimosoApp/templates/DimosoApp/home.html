@@ -1,0 +1,440 @@
+{% extends 'DimosoApp/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %} Dimoso El Blog {% endblock %}</title>
+    
+ <style type="text/css">
+     body{
+        overflow-x: hidden;
+     }
+     #name{
+        width: 70%;
+     }
+     #emeili{
+      width: 100%;
+    padding: 15px;
+    border: 3px solid blue;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    color: black;
+    font-weight: bold;
+     }
+     #meseji{
+        width: 100%;
+    padding: 15px;
+    border: 3px solid blue;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    color: black;
+    font-weight: bold;
+    height: 4cm;
+     }
+     #subject{
+        width: 100%;
+    padding: 15px;
+    border: 3px solid blue;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    color: black;
+    font-weight: bold;
+     }
+
+
+ </style>
+
+</head>
+
+<body>
+
+
+ 
+
+
+ <div class="container" style="margin-top: 0cm;">
+
+
+        <!-- --------------------- Blog Carousel ----------------- -->
+ 
+
+
+        <section>
+            <div class="blog">
+                <div class="container">
+                    <div class="owl-carousel owl-theme blog-post">
+                        <div class="blog-content" data-aos="fade-right" data-aos-delay="200">
+                            <img src="{% static 'DimosoApp/assets/img/python2.png' %}" alt="post-1">
+                            <div class="blog-title">
+                                <h3>Study Python Programming Language</h3>
+                                <button class="btn btn-blog" style="color: red;font-weight: bold;">Beginners and Advanced</button>
+                                
+                            </div>
+                        </div>
+                        <div class="blog-content" data-aos="fade-in" data-aos-delay="200">
+                            <img src="{% static 'DimosoApp/assets/img/phpi.png' %}" alt="post-1">
+                            <div class="blog-title">
+                                <h3>Study PHP Programming Language</h3>
+                                <button class="btn btn-blog" style="color: red;font-weight: bold;">Beginners and Advanced</button>
+                                
+                            </div>
+                        </div>
+                        <div class="blog-content" data-aos="fade-left" data-aos-delay="200">
+                            <img src="{% static 'DimosoApp/assets/img/cpprogramming2.jpeg' %}" alt="post-1">
+                            <div class="blog-title">
+                                <h3>Study C Programming Language</h3>
+                                <button class="btn btn-blog" style="color: red;font-weight: bold;">For Beginners</button>
+                                
+                            </div>
+                        </div>
+                        <div class="blog-content" data-aos="fade-right" data-aos-delay="200">
+                            <img src="{% static 'DimosoApp/assets/img/cppro.jpeg' %}" alt="post-1">
+                            <div class="blog-title">
+                                <h3>Study C++ Programming Language</h3>
+                                <button class="btn btn-blog" style="color: red;font-weight: bold;">For Beginners</button>
+                                
+                            </div>
+                        </div>
+
+
+            <div class="blog-content" data-aos="fade-right" data-aos-delay="200">
+                            <img src="{% static 'DimosoApp/assets/img/automation.jpeg' %}" alt="post-1">
+                            <div class="blog-title">
+                                <h3>Study Automation</h3>
+                                <button class="btn btn-blog" style="color: red;font-weight: bold;">For Beginners</button>
+                                
+                            </div>
+                        </div>
+
+                         <div class="blog-content" data-aos="fade-right" data-aos-delay="200">
+                            <img src="{% static 'DimosoApp/assets/img/mysql2.png' %}" alt="post-1">
+                            <div class="blog-title">
+                                <h3>Study MYSQL</h3>
+                                <button class="btn btn-blog" style="color: red;font-weight: bold;">For Beginners</button>
+                                
+                            </div>
+                        </div>
+
+
+                           <div class="blog-content" data-aos="fade-right" data-aos-delay="200">
+                            <img src="{% static 'DimosoApp/assets/img/multimedia.png' %}" alt="post-1">
+                            <div class="blog-title">
+                                <h3>Study Multimedia</h3>
+                                <button class="btn btn-blog" style="color: red;font-weight: bold;">For Beginners</button>
+                                
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="owl-navigation">
+
+                         <span class="owl-nav-next"><button class="btn btn-primary btn-md my-0 p" style="background-color: blue;color: white;font-weight: bold;">Scroll Left</button></span>
+                        <span class="owl-nav-prev"><button class="btn btn-primary btn-md my-0 p" style="background-color: blue;color: white;font-weight: bold;">Scroll Right</button></span>
+                       
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+<div class="row" style="margin-bottom: 1cm;">
+
+
+  <div class="col-md-12">
+    <h2 style="font-size: 40px;color: blue;font-weight: bold;"> <u>Our Categories</u> </h2>
+     {% for x in categories %}
+      <a href="{{x.get_absolute_url}}" style="font-size: 25px;font-weight: bold;color: red;"><u >{{x.name}}</u>,</a> 
+    
+  {% endfor %}
+  </div>
+
+  
+  
+</div>
+<!---
+ <div class="category" style="">
+                        <h2 style="font-size: 40px;color: red;font-weight: bold;"> <u>Our Categories</u> </h2>
+
+                        <ul class="category-list" style="display: inline;">
+                            <li><a href="{% url 'home' %}" style="font-size: 25px;margin-left: 13px; font-weight: bold;">All Tutorials</a></li>
+                            {% for x in categories %}
+                            <li class="list-items" data-aos="fade-left" data-aos-delay="100">
+
+                                <a href="{{x.get_absolute_url}}" style="font-size: 25px;font-weight: bold;">{{x.name}}</a> 
+                              
+                            </li>
+
+                            {% endfor %}
+
+                        </ul>
+
+
+                    </div>
+
+---->
+
+
+
+  <form action="" method="POST">
+        {% csrf_token %}
+
+        <div class="row">
+
+          <div class="col-md-12">
+    
+            <div class="row">
+
+              <div class="col-md-3">
+
+                {{form.name}}
+
+    
+              </div>
+              </div>
+              </div>
+              </div>
+        
+
+
+
+
+        <input type="submit" class="btni" value="Search"  style="margin-top: 1cm;">
+        
+    
+    </form>
+
+
+
+
+
+
+
+
+        <!-- ----------x---------- Blog Carousel --------x-------- -->
+
+        <!-- ---------------------- Site Content -------------------------->
+
+        <section class="container">
+            <div class="site-content">
+                <div class="posts">
+                  {% if posti %}
+                    <center>
+                        <h1 style="font-size: 40px;font-weight: bold;color: blue;">OUR POSTS</h1>
+                    </center>
+
+                   
+                    {% for x in posti %}
+                    <div class="post-content" data-aos="zoom-in" data-aos-delay="200">
+                       
+
+  <div class="post-image" style="margin-bottom: 2px;">
+    {% if x.image %} 
+                            <div style="width: 100%">
+                                <img src="{{x.image.url}}" class="img" alt="blog1">
+                            </div>
+                             {% else %}
+                               <div style="width: 100%">
+
+                            <img src="{% static 'DimosoApp/assets/img/gallery/basic.jpeg' %}"> 
+                        </div>
+                        {% endif %}
+                            <div class=" flex-row" style="background-color: green;color: white; font-weight: bold;text-align: center;margin-top: : 1cm;">
+                                <span><i class="fas fa-user text-red"></i>&nbsp;&nbsp;Posted:</span>
+                                <span><i class="fas fa-calendar-alt text-red"></i>&nbsp;&nbsp;{{x.post_date}}</span>
+                                <span>2 Commets</span>
+                            </div>
+                        </div>
+
+                        <h4 style="margin-left: 1cm;">{{x.title|safe}}</h4>
+                        <p style="margin-left: 1cm;">
+                           {{x.title_description|safe}}. 
+
+                        </p>
+                        <h2 style="margin-top: 0px;color: red;">Click a button below to read more.</h2>
+
+                       
+
+<a href="{% url 'PostDetail' x.pk %}" class="btn btn-primary btn-md my-0 p" style="background-color: blue;color: white;font-weight: bold;font-size: 20px;">Read Article</a>
+
+
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <h1>{{category.name}} are coming soon!!</h1>
+                    {% endif %}
+                    <hr>
+
+
+
+
+                 
+                </div>
+                <aside class="sidebar">
+                    <div class="category">
+                        <h2 style="font-size: 40px;color: red;font-weight: bold;"> <u>Our Categories</u> </h2>
+
+                        <ul class="category-list">
+                            <li><a href="{% url 'home' %}" style="font-size: 25px;margin-left: 13px; font-weight: bold;">All Tutorials</a></li>
+                            {% for x in categories %}
+                            <li class="list-items" data-aos="fade-left" data-aos-delay="100">
+
+                                <a href="{{x.get_absolute_url}}" style="font-size: 25px;font-weight: bold;">{{x.name}}</a> 
+                              
+                            </li>
+
+                            {% endfor %}
+
+                        </ul>
+
+
+                    </div>
+
+                    
+
+
+
+
+
+
+
+
+                    <div class="popular-post"><!--mwanzo wa latest posts---->
+                        <h2 style="color: blue;font-weight: bold;font-size: 40px;"><u>New Posts</u></h2>
+                        {{total_dozi}}
+
+
+                    {% for object in new_posts %}
+                        <div class="post-content" data-aos="flip-up" data-aos-delay="200">
+                            <div class="post-image">
+                                <div>
+                                    <img src="{{object.image.url}}" class="img" alt="blog1">
+                                </div>
+                                <div class="post-info flex-row">
+                                    <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp; {{object.post_date}}</span>
+                                   
+                                </div>
+                            </div>
+                            <div class="post-title">
+                                <a href="#" style="color: red;font-weight: bold;font-size: 20px;">{{object.name}}</a>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+
+
+         {% if messages %}
+      {% for message in messages %}
+      
+
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong style="">{{message}}</strong>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style=""></button>
+</div>
+      {% endfor %}
+    {% endif %}
+
+
+                    </div><!---mwisho wa latest posts----->
+                    <div class="newsletter" data-aos="fade-up" data-aos-delay="300">
+                        <h2>Send Email To Me</h2>
+                        <div class="form-element">
+                          <form method="POST" action="{% url 'send_email_to_dimoso' %}">
+                            {% csrf_token %}
+                            <input type="text" name="subject" id="subject" class="input-element" placeholder="subject"><br>
+                            
+
+                          <textarea type="text" name="message" id="meseji" class="input-element" placeholder="message"></textarea><br>
+
+                          <input type="email" name="email" id="emeili" class="input-element" placeholder="Email"><br>
+
+                            <button type="submit" class="btn btn-primary" style="margin-top: 1cm;">Send Email</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="popular-tags">
+                        <h2>Popular Tags</h2>
+                        <div class="tags flex-row">
+                            <span class="tag" data-aos="flip-up" data-aos-delay="100">Software</span>
+                            <span class="tag" data-aos="flip-up" data-aos-delay="200">technology</span>
+                            <span class="tag" data-aos="flip-up" data-aos-delay="300">travel</span>
+                            <span class="tag" data-aos="flip-up" data-aos-delay="400">illustration</span>
+                            <span class="tag" data-aos="flip-up" data-aos-delay="500">design</span>
+                            <span class="tag" data-aos="flip-up" data-aos-delay="600">lifestyle</span>
+                            <span class="tag" data-aos="flip-up" data-aos-delay="700">love</span>
+                            <span class="tag" data-aos="flip-up" data-aos-delay="800">project</span>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <!-- -----------x---------- Site Content -------------x------------>
+
+    </main>
+
+    <!---------------x------------- Main Site Section ---------------x-------------->
+
+</div>
+
+<!--jquery code for autocomplete javascriptcode---->
+<script src="{% static 'DimosoApp/assets/jqueryui/external/jquery/jquery.js' %}" type="text/javascript"></script>
+<script src="{% static 'DimosoApp/assets/jqueryui/jquery-ui.js' %}" type="text/javascript"></script>
+
+
+
+<script >
+  $( function() {
+    var availableTags = [
+      "ActionScript",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskel",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"
+      
+
+    ];
+
+   $( "#name" ). autocomplete({
+    source: "{% url 'search_post' %}",
+  });
+
+
+  } );
+  
+  
+
+</script>
+
+
+</body>
+
+</html>
+{% endblock %}

@@ -1,0 +1,219 @@
+{% extends 'DimosoApp/base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Post Comments {% endblock %}</title>
+    <style type="text/css">
+    *{
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+
+    } 
+    a{
+        text-decoration: none;
+    }
+    #testimonials{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+    }
+.testimonials{
+    letter-spacing: 1px;
+    margin: 30px 20px;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;align-items: center;
+}
+.testimonials-heading h1{
+    font-size: 2.2rem;
+    font-weight: 500;
+    background-color: #202020;
+    color: white;
+    padding: 10px 20px;
+}
+.testimonials-heading span{
+    font-size: 1.3rem;
+    color: #252525;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+.testimonials-box-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+
+}
+.testimonials-box{
+    width: 500px;
+    box-shadow: 2px 2px 30px rgba(0,0,0,0.1);
+    background-color:white;
+    padding: 20px;
+    margin: 15px;
+    cursor: pointer;
+}
+.profile-img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+}
+.profile-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.profile{
+    display: flex;
+    align-items: center;
+}
+.name-user{
+    display: flex;
+    flex-direction: column;
+}
+.name-user strong{
+    color: black;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+}
+.name-user span{
+    color: black;
+    font-size: 0.8rem;
+}
+.reviews{
+    color: red;
+}
+.box-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.client-comment p{
+    font-size: 0.9rem;
+    color: black;
+    font-weight: bold;
+}
+
+.testimonial-box:hover{
+    transform: translateY(-10px);
+    transition: all ease 0.3s;
+}
+
+
+    </style>
+</head>
+<body>
+
+<section id="testimonials">
+
+    <div class="testimonials-heading">
+
+        <h1>Client Comments</h1>
+        
+
+    </div>
+
+
+
+<div class="testimonials-box-container">
+{% if post_comments %}
+{% for comment in post_comments %}
+
+
+    <div class="testimonials-box">
+
+
+        <div class="box-top">
+
+            <div class="profile">
+                 {% if comment.user.profile_image %} 
+                
+  <div class="profile-img">
+
+      <img src="{{comment.user.profile_image.url}}"> 
+  </div> 
+  {% else %}
+  <div class="profile-img">
+      <img src="{% static 'DimosoApp/assets/img/gallery/icon2.jpeg' %}"> 
+  </div> 
+  {% endif %}
+
+  <div class="name-user">
+    <strong>{{comment.user.first_name}} {{comment.user.last_name}}</strong>
+    <span>{{comment.user.email}}</span>
+      
+  </div>             
+            </div>
+
+            <div class="reviews">
+
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                
+
+            </div>
+
+
+        </div>
+    <!--comments---->
+    <div class="client-comment">
+
+        <p>
+            {{comment.content}}
+        </p>
+        
+    </div>    
+
+
+    </div>
+
+
+
+
+{% endfor %}
+{% else %}
+<center>
+    <h2>There is no any comment from Blog users</h2>
+</center>
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+    
+</div>
+
+
+
+    
+</section>
+
+
+</body>
+</html>
+{% endblock %}
